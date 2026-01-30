@@ -31,11 +31,15 @@ export async function POST(request: Request) {
       html: `<p>You have a new newsletter subscription from: <strong>${email}</strong></p>`
     });
 
+    // Check if there was an error in the response
+    if (result.error) {
+      throw new Error(result.error.message || "Failed to send email");
+    }
+
     return NextResponse.json(
       { 
         success: true, 
-        message: "Subscription successful",
-        id: result.id 
+        message: "Subscription successful"
       },
       { status: 200 }
     );
