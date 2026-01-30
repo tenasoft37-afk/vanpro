@@ -26,6 +26,9 @@ interface FooterData {
 function Footerdemo() {
     const [isDarkMode, setIsDarkMode] = React.useState(false)
     const [footerData, setFooterData] = React.useState<FooterData | null>(null)
+    const [email, setEmail] = React.useState("")
+    const [isSubmitting, setIsSubmitting] = React.useState(false)
+    const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null)
 
     React.useEffect(() => {
         if (isDarkMode) {
@@ -49,6 +52,38 @@ function Footerdemo() {
 
         fetchFooterData();
     }, [])
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setMessage(null);
+
+        try {
+            const response = await fetch("/api/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to subscribe");
+            }
+
+            setMessage({ type: "success", text: "Thank you for subscribing!" });
+            setEmail("");
+        } catch (error) {
+            setMessage({
+                type: "error",
+                text: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <footer className="relative overflow-hidden" style={{ backgroundColor: '#FFFFFF' }}>
@@ -80,20 +115,29 @@ function Footerdemo() {
                             <p className="text-slate-600 text-sm">
                                 Subscribe for insights and exclusive content.
                             </p>
-                            <form className="relative group">
+                            <form onSubmit={handleSubmit} className="relative group">
                                 <Input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="pr-14 h-12 bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 rounded-xl focus:border-blue-500 focus:ring-blue-500/20 transition-all"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    disabled={isSubmitting}
+                                    className="pr-14 h-12 bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 rounded-xl focus:border-blue-500 focus:ring-blue-500/20 transition-all disabled:opacity-50"
                                 />
                                 <Button
                                     type="submit"
                                     size="icon"
-                                    className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-105"
+                                    disabled={isSubmitting}
+                                    className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <ArrowRight className="h-4 w-4" />
                                     <span className="sr-only">Subscribe</span>
                                 </Button>
+                                {message && (
+                                    <p className={`mt-2 text-xs ${message.type === "success" ? "text-green-600" : "text-red-600"}`}>
+                                        {message.text}
+                                    </p>
+                                )}
                             </form>
                         </div>
                     </div>
@@ -125,16 +169,20 @@ function Footerdemo() {
                                 Services
                             </h3>
                             <nav className="space-y-3 flex flex-col items-start">
-                                {['Business Consulting', 'Strategic Planning', 'Market Analysis', 'Financial Advisory', 'Growth Strategy'].map((link) => (
-                                    <a
-                                        key={link}
-                                        href="#"
-                                        className="group flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors duration-200"
-                                    >
-                                        <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
-                                        <span className="text-sm">{link}</span>
-                                    </a>
-                                ))}
+                                {['Business Consulting', 'Project Management', 'Requirement Analysis', 'Business Audit', 'Business Marketing','Digital Marketing'].map((link) => {
+                                    // Create URL-friendly ID from service name
+                                    const serviceId = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                                    return (
+                                        <a
+                                            key={link}
+                                            href={`/services#${serviceId}`}
+                                            className="group flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors duration-200"
+                                        >
+                                            <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
+                                            <span className="text-sm">{link}</span>
+                                        </a>
+                                    );
+                                })}
                             </nav>
                         </div>
                     </div>
@@ -222,7 +270,7 @@ function Footerdemo() {
 
                     {/* Copyright */}
                     <p className="text-sm text-slate-500 text-center">
-                        © 2024 VanBusiness. All rights reserved.
+                        © 2026 VanGuard. All rights reserved.
                     </p>
                 </div>
             </div>

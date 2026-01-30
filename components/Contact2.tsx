@@ -78,7 +78,7 @@ export default function Contact2() {
 
     return (
         <>
-            <section className="w-full py-20 bg-white">
+            <section id="LatestNews" className="w-full py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
                     {/* Header */}
                     <div className="text-center mb-12">

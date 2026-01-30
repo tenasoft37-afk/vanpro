@@ -100,10 +100,10 @@ export default function FeaturesHome() {
                 <span className="text-yellow-400 font-extrabold text-lg">
                   {card.number}
                 </span>
-                <h3 className="text-xl font-bold text-white mt-3 mb-2">
+                <h3 className={`text-xl font-bold mt-3 mb-2 ${index === 2 ? 'text-black md:text-white' : 'text-white'}`}>
                   {card.title}
                 </h3>
-                <p className="text-white/70 text-sm mb-6 max-w-sm">
+                <p className={`text-sm mb-6 max-w-sm ${index === 2 ? 'text-black md:text-white/70' : 'text-white/70'}`}>
                   {card.description}
                 </p>
                 <div className="relative w-full h-[220px] rounded-xl overflow-hidden">

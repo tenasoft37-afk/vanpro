@@ -125,10 +125,14 @@ export default function Services1() {
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {services.filter(service => service.title && service.description).map((service, index) => (
+                    {services.filter(service => service.title && service.description).map((service, index) => {
+                        // Create URL-friendly ID from service title
+                        const serviceId = service.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                        return (
                         <div
                             key={index}
-                            className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden"
+                            id={serviceId}
+                            className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden scroll-mt-24"
                         >
                             {/* Image */}
                             <div className="relative h-52 w-full">
@@ -156,7 +160,8 @@ export default function Services1() {
                                 </p>
                             </div>
                         </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
             </div>

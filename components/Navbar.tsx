@@ -12,11 +12,11 @@ export default function Navbar() {
   const isHomePage = pathname === "/";
 
   const menuItems = [
-    { name: "Home" },
-    { name: "About" },
-    { name: "Services" },
-    { name: "Blog" },
-    { name: "Contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Blog", href: "/#LatestNews" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -45,7 +45,7 @@ export default function Navbar() {
               className="relative group"
             >
               <Link
-                href={`/${item.name.toLowerCase()}`}
+                href={item.href}
                 className="flex items-center gap-1 text-[15px] font-bold text-gray-700 hover:text-gray-900 transition-colors duration-200 cursor-pointer"
               >
                 {item.name}
@@ -57,9 +57,14 @@ export default function Navbar() {
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-4">
           {/* Get A Quote Button */}
-          <button className="rounded-full border-2 border-cyan-400 bg-white px-7 py-2.5 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500">
+          <a 
+            href="https://wa.me/1234567890" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-cyan-400 bg-white px-7 py-2.5 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
+          >
             Get A Quote
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -83,7 +88,7 @@ export default function Navbar() {
             {menuItems.map((item) => (
               <li key={item.name}>
                 <Link
-                  href={`/${item.name.toLowerCase()}`}
+                  href={item.href}
                   className="block py-3 text-[15px] font-bold text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg px-4 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -93,9 +98,14 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="px-6 pb-6">
-            <button className="w-full rounded-full border-2 border-cyan-400 bg-white px-7 py-3 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500">
+            <a 
+              href="https://wa.me/1234567890" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block w-full text-center rounded-full border-2 border-cyan-400 bg-white px-7 py-3 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
+            >
               Get A Quote
-            </button>
+            </a>
           </div>
         </div>
       )}
