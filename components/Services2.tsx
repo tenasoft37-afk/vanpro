@@ -144,7 +144,7 @@ export default function Services2() {
                         >
                             {/* Icon */}
                             <div className="flex-shrink-0">
-                                <div className="w-14 h-14 rounded-full bg-[#004E99] flex items-center justify-center">
+                                <div className="w-14 h-14 rounded-full bg-[#538A3E] flex items-center justify-center">
                                     {item.icon}
                                 </div>
                             </div>

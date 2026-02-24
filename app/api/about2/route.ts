@@ -13,21 +13,22 @@ export async function GET() {
 
     if (!about2) {
       return NextResponse.json(
-        { 
+        {
           title: "",
-          image: "",
+          description: "", // Changed from 'image' to 'description'
         }
       );
     }
 
     return NextResponse.json({
       title: about2.title ?? "",
-      image: about2.image ?? "",
+      description: about2.description ?? "", // Changed from 'image' to 'description'
+      items: about2.items ?? [],
     });
   } catch (error) {
     console.error("Error fetching about2:", error);
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch about2",
         details: error instanceof Error ? error.message : "Unknown error",
       },

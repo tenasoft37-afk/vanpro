@@ -13,7 +13,7 @@ export async function GET() {
 
     if (!about3) {
       return NextResponse.json(
-        { 
+        {
           title: "",
           description: "",
         }
@@ -23,11 +23,12 @@ export async function GET() {
     return NextResponse.json({
       title: about3.title ?? "",
       description: about3.description ?? "",
+      items: about3.items ?? [],
     });
   } catch (error) {
     console.error("Error fetching about3:", error);
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch about3",
         details: error instanceof Error ? error.message : "Unknown error",
       },

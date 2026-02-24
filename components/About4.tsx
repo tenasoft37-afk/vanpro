@@ -82,7 +82,7 @@ export default function About4() {
   const getVideoUrl = (): string => {
     if (!about4Data?.video) return "";
     const url = about4Data.video;
-    
+
     if (isEmbeddableVideo(url)) {
       if (/youtube|youtu\.be/i.test(url)) {
         return getYouTubeEmbedUrl(url);
@@ -105,20 +105,21 @@ export default function About4() {
             src="/about4-image.webp"
             alt="Business Video"
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale brightness-50 contrast-125"
             priority
           />
 
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-black/40 to-transparent" />
+          {/* Gray Overlay to kill the blue background */}
+          <div className="absolute inset-0 bg-[#3D3D3D]/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#3D3D3D] via-black/40 to-[#3D3D3D]/30" />
 
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
             <button
               onClick={handlePlayClick}
-              className="w-24 h-24 rounded-full bg-yellow-400 flex items-center justify-center mb-8 
-                         shadow-[0_0_30px_rgba(250,204,21,0.5)] transform transition duration-300 
-                         hover:scale-110 hover:shadow-[0_0_50px_rgba(250,204,21,0.7)] group-hover:animate-pulse cursor-pointer"
+              className="w-24 h-24 rounded-full bg-[#538A3E] flex items-center justify-center mb-8 
+                         shadow-[0_0_30px_rgba(83,138,62,0.5)] transform transition duration-300 
+                         hover:scale-110 hover:shadow-[0_0_50px_rgba(83,138,62,0.7)] group-hover:animate-pulse cursor-pointer"
               aria-label="Play video"
             >
               <Play className="text-white w-10 h-10 ml-1 fill-current" />
@@ -141,11 +142,11 @@ export default function About4() {
 
       {/* VIDEO MODAL */}
       {isVideoOpen && about4Data?.video && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={handleCloseVideo}
         >
-          <div 
+          <div
             className="relative w-full max-w-6xl mx-4 aspect-video bg-black rounded-lg overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -182,13 +183,13 @@ export default function About4() {
       )}
 
       {/* STATS SECTION */}
-      <div className="relative z-0 -mt-24 pt-48 pb-24 bg-[#004E99]">
+      <div className="relative z-0 -mt-24 pt-48 pb-24 bg-[#538A3E]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-white text-center divide-y md:divide-y-0 md:divide-x divide-white/20">
 
             {/* Item 1 */}
             <div className="flex flex-col items-center pt-8 md:pt-0 group cursor-default">
-              <Globe className="w-14 h-14 mb-6 text-yellow-400 transition-transform duration-300 group-hover:scale-110" />
+              <Globe className="w-14 h-14 mb-6 text-white transition-transform duration-300 group-hover:scale-110" />
               <h3 className="text-5xl font-black mb-2 tracking-tighter">2+</h3>
               <p className="text-lg font-medium opacity-90 leading-tight">
                 World Wide Business <br /> Automation
@@ -197,7 +198,7 @@ export default function About4() {
 
             {/* Item 2 */}
             <div className="flex flex-col items-center pt-8 md:pt-0 group cursor-default">
-              <Users className="w-14 h-14 mb-6 text-yellow-400 transition-transform duration-300 group-hover:scale-110" />
+              <Users className="w-14 h-14 mb-6 text-white transition-transform duration-300 group-hover:scale-110" />
               <h3 className="text-5xl font-black mb-2 tracking-tighter">1K</h3>
               <p className="text-lg font-medium opacity-90 leading-tight">
                 World Wide Business <br /> Partners
@@ -206,7 +207,7 @@ export default function About4() {
 
             {/* Item 3 */}
             <div className="flex flex-col items-center pt-8 md:pt-0 group cursor-default">
-              <TrendingUp className="w-14 h-14 mb-6 text-yellow-400 transition-transform duration-300 group-hover:scale-110" />
+              <TrendingUp className="w-14 h-14 mb-6 text-white transition-transform duration-300 group-hover:scale-110" />
               <h3 className="text-5xl font-black mb-2 tracking-tighter">1%</h3>
               <p className="text-lg font-medium opacity-90 leading-tight">
                 World Wide Business <br /> Profit

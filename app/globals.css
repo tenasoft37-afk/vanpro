@@ -13,6 +13,38 @@
   --animate-marquee: marquee var(--duration) linear infinite;
   --animate-marquee-reverse: marquee-reverse var(--duration) linear infinite;
 
+  /* New Project Palette */
+  --color-sky-50: #f4f8f2;
+  --color-sky-100: #ecf3e9;
+  --color-sky-200: #cfe1c9;
+  --color-sky-300: #b2cfa8;
+  --color-sky-400: #5F9B43;
+  --color-sky-500: #538A3E;
+  --color-sky-600: #477635;
+
+  --color-cyan-50: #f4f8f2;
+  --color-cyan-100: #ecf3e9;
+  --color-cyan-200: #cfe1c9;
+  --color-cyan-300: #b2cfa8;
+  --color-cyan-400: #5F9B43;
+  --color-cyan-500: #538A3E;
+  --color-cyan-600: #477635;
+
+  --color-gray-900: #3D3D3D;
+  --color-gray-800: #454545;
+  --color-gray-700: #3D3D3D;
+  --color-gray-600: #4D4C4C;
+  --color-gray-500: #4D4C4C;
+
+  /* Overriding yellow to gray for consistent branding */
+  --color-yellow-50: #f8f8f8;
+  --color-yellow-100: #f0f0f0;
+  --color-yellow-200: #e0e0e0;
+  --color-yellow-300: #d0d0d0;
+  --color-yellow-400: #4D4C4C;
+  --color-yellow-500: #3D3D3D;
+  --color-yellow-600: #2d2d2d;
+
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -37,6 +69,7 @@
     from {
       transform: scaleX(0);
     }
+
     to {
       transform: scaleX(1);
     }
@@ -46,6 +79,7 @@
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }

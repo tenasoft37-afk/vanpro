@@ -33,15 +33,14 @@ export default function LoadingScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-white via-sky-50/30 to-white transition-opacity duration-700 ease-in-out ${
-        isLoading ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-white via-sky-50/30 to-white transition-opacity duration-700 ease-in-out ${isLoading ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
     >
       <div className="flex flex-col items-center gap-8">
         {/* Logo with smooth animation */}
-        <div className="relative w-64 h-20 transform transition-all duration-500">
+        <div className="relative w-80 h-28 transform transition-all duration-500">
           <Image
-            src="/logo.png"
+            src="/h5.png"
             alt="Loading"
             fill
             className="object-contain drop-shadow-lg"

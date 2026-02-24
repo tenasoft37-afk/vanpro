@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 interface About3Data {
   title: string;
   description: string;
+  items?: string[];
 }
 
 export default function About3() {
@@ -38,7 +39,7 @@ export default function About3() {
 
           {/* LEFT CONTENT */}
           <div>
-            <p className="text-sky-500 font-bold uppercase tracking-widest mb-4">
+            <p className="text-[#538A3E] font-bold uppercase tracking-widest mb-4">
               OUR SKILLS
             </p>
 
@@ -48,72 +49,35 @@ export default function About3() {
                   {about3Data.title}
                 </h2>
 
-                <p className="text-gray-500 mb-10 max-w-xl">
+                <p className="text-gray-500 mb-10 max-w-xl whitespace-pre-line">
                   {about3Data.description}
                 </p>
               </>
             )}
 
-            {/* PROGRESS BARS */}
-            <div className="space-y-8">
+            {/* Mission / Goal List */}
+            <div className="space-y-6">
+              {about3Data?.items?.map((item, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl transition-all hover:bg-white hover:border-gray-200 border border-transparent">
+                  <div className="w-7 h-7 rounded-full bg-[#538A3E] text-white flex items-center justify-center flex-shrink-0 text-sm font-bold">
+                    {index + 1}
+                  </div>
+                  <p className="text-gray-700 font-medium leading-relaxed whitespace-pre-line">
+                    {item}
+                  </p>
+                </div>
+              ))}
 
-              {/* Web Design */}
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-semibold text-gray-900">
-                    Web Design
-                  </span>
-                  <span className="font-semibold text-gray-900">
-                    70%
-                  </span>
+              {!about3Data?.items && (
+                // Placeholder for when items are loading or not available
+                <div className="p-4 bg-gray-50 rounded-xl animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-yellow-400 rounded-full transition-all duration-1000 ease-out ${animate ? "w-[70%]" : "w-0"
-                      }`}
-                  />
-                </div>
-              </div>
-
-              {/* Mobile Application */}
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-semibold text-gray-900">
-                    Mobile Application
-                  </span>
-                  <span className="font-semibold text-gray-900">
-                    90%
-                  </span>
-                </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-yellow-400 rounded-full transition-all duration-1000 delay-150 ease-out ${animate ? "w-[90%]" : "w-0"
-                      }`}
-                  />
-                </div>
-              </div>
-
-              {/* Digital Marketing */}
-              <div>
-                <div className="flex justify-between mb-2">
-                  <span className="font-semibold text-gray-900">
-                    Digital Marketing
-                  </span>
-                  <span className="font-semibold text-gray-900">
-                    60%
-                  </span>
-                </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-yellow-400 rounded-full transition-all duration-1000 delay-300 ease-out ${animate ? "w-[60%]" : "w-0"
-                      }`}
-                  />
-                </div>
-              </div>
-
+              )}
             </div>
 
-            <button className="mt-12 inline-flex items-center justify-center px-8 py-4 rounded-full bg-sky-500 text-white font-semibold hover:bg-sky-600 transition">
+            <button className="mt-12 inline-flex items-center justify-center px-8 py-4 rounded-full bg-[#538A3E] text-white font-semibold hover:bg-[#5F9B43] transition">
               Our Services
             </button>
           </div>
@@ -131,6 +95,6 @@ export default function About3() {
 
         </div>
       </div>
-    </section>
+    </section >
   );
 }

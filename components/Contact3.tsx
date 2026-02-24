@@ -63,17 +63,17 @@ export default function Contact3() {
 
     // تكرار كافي لضمان حركة متواصلة
     const logos = brandsData?.images || [];
-    const repeatedLogos = logos.length > 0 
+    const repeatedLogos = logos.length > 0
         ? [...logos, ...logos, ...logos, ...logos]
         : [];
     return (
         <section className="relative w-full">
             {/* Background Split */}
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-[#004b93]" />
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-[#538A3E]" />
             <div className="absolute bottom-0 left-0 w-full h-1/2 bg-white" />
 
             <div className="relative max-w-7xl mx-auto px-6 py-12">
-                <div className="bg-[#fbbf24] rounded-3xl p-8 md:p-16 flex flex-col shadow-lg text-center md:text-left">
+                <div className="bg-[#3D3D3D] rounded-3xl p-8 md:p-16 flex flex-col shadow-lg text-center md:text-left">
 
                     <div className="flex flex-col md:flex-row items-center justify-between w-full mb-10">
                         {/* Text */}
@@ -102,7 +102,7 @@ export default function Contact3() {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full sm:w-auto bg-[#00bfff] hover:bg-[#00a3d9] text-white font-bold px-8 py-4 sm:py-0 h-14 sm:h-full transition-colors duration-300 rounded-lg sm:rounded-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="w-full sm:w-auto bg-[#5F9B43] hover:bg-[#538A3E] text-white font-bold px-8 py-4 sm:py-0 h-14 sm:h-full transition-colors duration-300 rounded-lg sm:rounded-none disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isSubmitting ? "Subscribing..." : "Subscribe"}
                                     </button>

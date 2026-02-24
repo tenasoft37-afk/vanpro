@@ -4,16 +4,16 @@ export default function Contact1() {
             <div className="max-w-7xl mx-auto px-6 relative">
 
                 {/* Decorative Dark Blue Shape (Top Left) */}
-                <div className="absolute -left-16 -top-12 w-48 h-64 bg-[#004b93] rounded-3xl hidden md:block z-0" />
+                <div className="absolute -left-16 -top-12 w-48 h-64 bg-[#4D4C4C] rounded-3xl hidden md:block z-0" />
 
                 {/* Main Content Card */}
-                <div className="relative z-10 w-full bg-[#1aa3e8] rounded-[2.5rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between shadow-lg overflow-hidden">
+                <div className="relative z-10 w-full bg-[#5F9B43] rounded-[2.5rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between shadow-lg overflow-hidden">
 
                     {/* Dotted Pattern Overlay */}
                     <div
                         className="absolute inset-0 z-0 opacity-10 pointer-events-none"
                         style={{
-                            backgroundImage: "radial-gradient(#002f5f 6px, transparent 6px)",
+                            backgroundImage: "radial-gradient(#3D3D3D 6px, transparent 6px)",
                             backgroundSize: "24px 24px"
                         }}
                     />
@@ -35,7 +35,7 @@ export default function Contact1() {
 
                     {/* Right Button */}
                     <div className="relative z-10 mt-8 md:mt-0 flex-shrink-0">
-                        <button className="bg-[#004b93] hover:bg-[#003870] text-white font-bold text-lg px-10 py-4 rounded-full transition-all duration-300 shadow-md">
+                        <button className="bg-[#3D3D3D] hover:bg-[#4D4C4C] text-white font-bold text-lg px-10 py-4 rounded-full transition-all duration-300 shadow-md">
                             Contact Us
                         </button>
                     </div>

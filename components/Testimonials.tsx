@@ -10,21 +10,21 @@ import "swiper/css/pagination";
 
 const testimonials = [
     {
-        text: "Working with several WordPress themes and templates over the years, I can confidently say this is the best in every aspect. From design to code quality, everything is excellent.",
-        name: "Mike Tyson",
-        role: "Manager",
+        text: "Vanguard managed our hotel rebranding and refurbishment across multiple Gulf properties. Their project coordination, vendor control, and timely delivery exceeded expectations.",
+        name: "Hassan Al-Rashid",
+        role: "Operations Director, Gulf Hotels Group",
         image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d",
     },
     {
-        text: "This is one of the BEST THEMES I have ever worked with. The extra features are amazing and the customer support is extremely responsive and helpful.",
-        name: "Selena Anderson",
-        role: "Journalist",
+        text: "They provided turnkey contracting and engineering inputs for our commercial fit-outs in the EU. Quality workmanship and rigorous project oversight throughout the delivery.",
+        name: "Elena Petrova",
+        role: "CEO, Petrova Interiors",
         image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39",
     },
     {
-        text: "The design quality, flexibility, and documentation are outstanding. I highly recommend this service for anyone looking for professional results.",
-        name: "David Johnson",
-        role: "Business Consultant",
+        text: "Vanguard's marketing and operations consultancy helped us open new branches across West Africa. Their regional experience and practical solutions were invaluable.",
+        name: "Samuel Okoye",
+        role: "Founder, Sahara Ventures",
         image: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
     },
 ];
@@ -43,13 +43,13 @@ export default function Testimonials() {
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
                         We are Very <br />
                         Happy to Get Our <br />
-                        Client&rsquo;s Reviews.
+                        Client’s Reviews.
                     </h2>
 
                     <p className="text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
-                        We value the experimentation, the reformation of the message, and the
-                        smart incentives. We offer a variety of services and solutions
-                        Worldwide.
+                        Since 2015 Vanguard has supported re-structuring, re-branding,
+                        and openings across the Middle East, EU, Africa and beyond,
+                        offering consultancy, contracting, marketing and engineering-led solutions.
                     </p>
                 </div>
 
@@ -134,7 +134,7 @@ export default function Testimonials() {
           }
         }
         .custom-pagination .swiper-pagination-bullet-active {
-          background-color: #0ea5e9;
+          background-color: #538A3E;
           transform: scale(1.3);
         }
       `}</style>

@@ -28,11 +28,11 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo.png"
+            src="/h5.png"
             alt="VanBusiness Logo"
-            width={300}
-            height={80}
-            className="h-20 w-auto object-contain"
+            width={500}
+            height={130}
+            className="h-28 w-auto object-contain"
             priority
           />
         </Link>
@@ -57,9 +57,9 @@ export default function Navbar() {
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-4">
           {/* Get A Quote Button */}
-          <a 
-            href="https://wa.me/1234567890" 
-            target="_blank" 
+          <a
+            href="https://wa.me/1234567890"
+            target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border-2 border-cyan-400 bg-white px-7 py-2.5 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
           >
@@ -98,9 +98,9 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="px-6 pb-6">
-            <a 
-              href="https://wa.me/1234567890" 
-              target="_blank" 
+            <a
+              href="https://wa.me/1234567890"
+              target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center rounded-full border-2 border-cyan-400 bg-white px-7 py-3 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
             >

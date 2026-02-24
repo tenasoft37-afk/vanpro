@@ -37,25 +37,25 @@ export default function FeaturesHome() {
 
   const cards = featuresData
     ? [
-        {
-          number: "01",
-          title: featuresData.card1Title,
-          description: featuresData.card1Descrption,
-          image: featuresData.card1Image,
-        },
-        {
-          number: "02",
-          title: featuresData.card2Title,
-          description: featuresData.card2Descrption,
-          image: featuresData.card2Image,
-        },
-        {
-          number: "03",
-          title: featuresData.card3Title,
-          description: featuresData.card3Descrption,
-          image: featuresData.card3Image,
-        },
-      ]
+      {
+        number: "01",
+        title: featuresData.card1Title,
+        description: featuresData.card1Descrption,
+        image: featuresData.card1Image,
+      },
+      {
+        number: "02",
+        title: featuresData.card2Title,
+        description: featuresData.card2Descrption,
+        image: featuresData.card2Image,
+      },
+      {
+        number: "03",
+        title: featuresData.card3Title,
+        description: featuresData.card3Descrption,
+        image: featuresData.card3Image,
+      },
+    ]
     : [];
 
   return (
@@ -63,7 +63,7 @@ export default function FeaturesHome() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/features-home-background.png"
+          src="/features.png"
           alt="Features Background"
           fill
           className="object-cover"
@@ -97,7 +97,7 @@ export default function FeaturesHome() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {cards.map((card, index) => (
               <div key={index}>
-                <span className="text-yellow-400 font-extrabold text-lg">
+                <span className="text-sky-500 font-extrabold text-lg">
                   {card.number}
                 </span>
                 <h3 className={`text-xl font-bold mt-3 mb-2 ${index === 2 ? 'text-black md:text-white' : 'text-white'}`}>

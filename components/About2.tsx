@@ -4,9 +4,17 @@ import Image from "next/image";
 import { DollarSign, BarChart3, Settings, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 
+interface About2Item {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
 interface About2Data {
   title: string;
+  description: string; // Added description field
   image: string;
+  items?: About2Item[];
 }
 
 export default function About2() {
@@ -47,63 +55,52 @@ export default function About2() {
 
           {/* Right Content */}
           <div className="text-center lg:text-left">
-            <p className="text-sky-500 font-bold uppercase tracking-widest mb-3">
+            <p className="text-[#538A3E] font-bold uppercase tracking-widest mb-3">
               Featured Services
             </p>
             {/* Title */}
             {about2Data && (
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-10 leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
                 {about2Data.title}
               </h2>
             )}
+            {/* Description */}
+            {about2Data && (
+              <p className="text-gray-500 mb-10 max-w-xl whitespace-pre-line">
+                {about2Data.description}
+              </p>
+            )}
 
-            {/* Services */}
+            {/* Services / Philosophy Items */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12">
+              {about2Data?.items?.map((item, index) => (
+                <div key={index} className="flex flex-col items-center lg:items-start group">
+                  <div className="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mb-4 transition-colors group-hover:bg-green-100">
+                    {item.icon === "DollarSign" && <DollarSign className="w-7 h-7 text-[#538A3E]" />}
+                    {item.icon === "BarChart3" && <BarChart3 className="w-7 h-7 text-[#538A3E]" />}
+                    {item.icon === "Settings" && <Settings className="w-7 h-7 text-[#538A3E]" />}
+                    {item.icon === "TrendingUp" && <TrendingUp className="w-7 h-7 text-[#538A3E]" />}
+                    {!item.icon && <TrendingUp className="w-7 h-7 text-[#538A3E]" />} {/* Default icon */}
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs whitespace-pre-line">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
 
-              {/* Item */}
-              <div className="flex flex-col items-center lg:items-start">
-                <DollarSign className="w-12 h-12 text-sky-500 mb-4" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                  Online Monetizing
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-                  Niore et dolore magna aliqu enim ad minim venia uis nost
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center lg:items-start">
-                <BarChart3 className="w-12 h-12 text-sky-500 mb-4" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                  Online Analysis
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-                  Niore et dolore magna aliqu enim ad minim venia uis nost
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center lg:items-start">
-                <Settings className="w-12 h-12 text-sky-500 mb-4" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                  Web Designing
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-                  Niore et dolore magna aliqu enim ad minim venia uis nost
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center lg:items-start">
-                <TrendingUp className="w-12 h-12 text-sky-500 mb-4" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                  SEO Marketing
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-                  Niore et dolore magna aliqu enim ad minim venia uis nost
-                </p>
-              </div>
-
+              {/* Placeholder items if no data is fetched or items array is empty */}
+              {!about2Data?.items && (
+                <div className="flex flex-col items-center lg:items-start">
+                  <DollarSign className="w-12 h-12 text-[#538A3E] mb-4" />
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">Online Monetizing</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs">Connecting businesses with digital revenue opportunities.</p>
+                </div>
+              )}
             </div>
           </div>
-
         </div>
       </div>
     </section>

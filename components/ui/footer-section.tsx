@@ -97,11 +97,11 @@ function Footerdemo() {
                         <div className="space-y-3 sm:space-y-4">
                             <div className="flex items-center gap-3">
                                 <Image
-                                    src="/logo.png"
+                                    src="/h5.png"
                                     alt="VanBusiness Logo"
-                                    width={280}
-                                    height={75}
-                                    className="h-16 w-auto object-contain"
+                                    width={480}
+                                    height={130}
+                                    className="h-24 w-auto object-contain"
                                 />
                             </div>
                             <p className="text-slate-600 text-sm leading-relaxed max-w-xs">
@@ -110,7 +110,7 @@ function Footerdemo() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
+                        <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#f4f8f2] to-[#ecf3e9] border border-[#CFE1C9]">
                             <h3 className="text-base sm:text-lg font-semibold text-slate-800">Stay Updated</h3>
                             <p className="text-slate-600 text-sm">
                                 Subscribe for insights and exclusive content.
@@ -122,13 +122,13 @@ function Footerdemo() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={isSubmitting}
-                                    className="pr-14 h-12 bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 rounded-xl focus:border-blue-500 focus:ring-blue-500/20 transition-all disabled:opacity-50"
+                                    className="pr-14 h-12 bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 rounded-xl focus:border-[#538A3E] focus:ring-[#538A3E]/20 transition-all disabled:opacity-50"
                                 />
                                 <Button
                                     type="submit"
                                     size="icon"
                                     disabled={isSubmitting}
-                                    className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-gradient-to-r from-[#538A3E] to-[#5F9B43] text-white shadow-lg shadow-[#538A3E]/25 transition-all hover:shadow-[#538A3E]/40 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <ArrowRight className="h-4 w-4" />
                                     <span className="sr-only">Subscribe</span>
@@ -154,9 +154,9 @@ function Footerdemo() {
                                     <a
                                         key={link}
                                         href="#"
-                                        className="group flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors duration-200"
+                                        className="group flex items-center gap-2 text-slate-600 hover:text-[#538A3E] transition-colors duration-200"
                                     >
-                                        <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
+                                        <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-[#538A3E] transition-colors" />
                                         <span className="text-sm">{link}</span>
                                     </a>
                                 ))}
@@ -169,16 +169,16 @@ function Footerdemo() {
                                 Services
                             </h3>
                             <nav className="space-y-3 flex flex-col items-start">
-                                {['Business Consulting', 'Project Management', 'Requirement Analysis', 'Business Audit', 'Business Marketing','Digital Marketing'].map((link) => {
+                                {['Business Consulting', 'Project Management', 'Requirement Analysis', 'Business Audit', 'Business Marketing', 'Digital Marketing'].map((link) => {
                                     // Create URL-friendly ID from service name
                                     const serviceId = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                                     return (
                                         <a
                                             key={link}
                                             href={`/services#${serviceId}`}
-                                            className="group flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors duration-200"
+                                            className="group flex items-center gap-2 text-slate-600 hover:text-[#538A3E] transition-colors duration-200"
                                         >
-                                            <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors" />
+                                            <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-[#538A3E] transition-colors" />
                                             <span className="text-sm">{link}</span>
                                         </a>
                                     );
@@ -196,8 +196,8 @@ function Footerdemo() {
                             {footerData && (
                                 <>
                                     <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 lg:gap-4 group">
-                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <MapPin className="w-5 h-5 text-blue-600" />
+                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-[#f4f8f2] flex items-center justify-center group-hover:bg-[#ecf3e9] transition-colors">
+                                            <MapPin className="w-5 h-5 text-[#538A3E]" />
                                         </div>
                                         <div className="text-center lg:text-left">
                                             <p className="text-sm text-slate-800 font-bold lg:font-medium">{footerData.locationTitle}</p>
@@ -205,23 +205,23 @@ function Footerdemo() {
                                         </div>
                                     </div>
                                     <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 lg:gap-4 group">
-                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <Phone className="w-5 h-5 text-blue-600" />
+                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-[#f4f8f2] flex items-center justify-center group-hover:bg-[#ecf3e9] transition-colors">
+                                            <Phone className="w-5 h-5 text-[#538A3E]" />
                                         </div>
                                         <div className="text-center lg:text-left">
                                             <p className="text-sm text-slate-800 font-bold lg:font-medium">{footerData.phoneTitle}</p>
-                                            <a href={`tel:${footerData.phoneDescription}`} className="text-xs sm:text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                                            <a href={`tel:${footerData.phoneDescription}`} className="text-xs sm:text-sm text-slate-600 hover:text-[#538A3E] transition-colors">
                                                 {footerData.phoneDescription}
                                             </a>
                                         </div>
                                     </div>
                                     <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 lg:gap-4 group">
-                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                                            <Mail className="w-5 h-5 text-blue-600" />
+                                        <div className="flex-shrink-0 w-11 h-11 lg:w-10 lg:h-10 rounded-xl bg-[#f4f8f2] flex items-center justify-center group-hover:bg-[#ecf3e9] transition-colors">
+                                            <Mail className="w-5 h-5 text-[#538A3E]" />
                                         </div>
                                         <div className="text-center lg:text-left">
                                             <p className="text-sm text-slate-800 font-bold lg:font-medium">{footerData.emailTitle}</p>
-                                            <a href={`mailto:${footerData.emailDescription}`} className="text-xs sm:text-sm text-slate-600 hover:text-blue-600 transition-colors break-all">
+                                            <a href={`mailto:${footerData.emailDescription}`} className="text-xs sm:text-sm text-slate-600 hover:text-[#538A3E] transition-colors break-all">
                                                 {footerData.emailDescription}
                                             </a>
                                         </div>
