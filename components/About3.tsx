@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface About3Data {
@@ -77,9 +78,9 @@ export default function About3() {
               )}
             </div>
 
-            <button className="mt-12 inline-flex items-center justify-center px-8 py-4 rounded-full bg-[#538A3E] text-white font-semibold hover:bg-[#5F9B43] transition">
+            <Link href="/services" className="mt-12 inline-flex items-center justify-center px-8 py-4 rounded-full bg-[#538A3E] text-white font-semibold hover:bg-[#5F9B43] transition">
               Our Services
-            </button>
+            </Link>
           </div>
 
           {/* RIGHT IMAGE – SINGLE IMAGE ONLY */}

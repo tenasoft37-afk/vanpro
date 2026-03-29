@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/#LatestNews" },
     { name: "Contact", href: "/contact" },
   ];
@@ -58,9 +59,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           {/* Get A Quote Button */}
           <a
-            href="https://wa.me/1234567890"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             className="rounded-full border-2 border-cyan-400 bg-white px-7 py-2.5 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
           >
             Get A Quote
@@ -99,10 +98,9 @@ export default function Navbar() {
           </ul>
           <div className="px-6 pb-6">
             <a
-              href="https://wa.me/1234567890"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="block w-full text-center rounded-full border-2 border-cyan-400 bg-white px-7 py-3 text-[15px] font-semibold text-gray-800 transition-all duration-200 hover:bg-cyan-50 hover:border-cyan-500"
+              onClick={() => setIsMenuOpen(false)}
             >
               Get A Quote
             </a>

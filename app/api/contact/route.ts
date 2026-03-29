@@ -5,11 +5,11 @@ const resend = new Resend('re_LhA4CSUG_2DDK3TLSrPvHwfEoBpEuH8y7');
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { name, email, subject, message } = await request.json();
 
-    if (!email) {
+    if (!name || !email || !subject || !message) {
       return NextResponse.json(
-        { error: "Email is required" },
+        { error: "All fields are required" },
         { status: 400 }
       );
     }
@@ -27,24 +27,27 @@ export async function POST(request: Request) {
     const result = await resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'hsalam@vanguardlb.com',
-      subject: 'New Newsletter Subscription',
-      html: `<p>You have a new newsletter subscription from: <strong>${email}</strong></p>`
+      subject: `Contact Form: ${subject}`,
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `
     });
 
-    // Check if there was an error in the response
     if (result.error) {
       throw new Error(result.error.message || "Failed to send email");
     }
 
     return NextResponse.json(
-      {
-        success: true,
-        message: "Subscription successful"
-      },
+      { success: true, message: "Message sent successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending contact email:", error);
     return NextResponse.json(
       {
         error: "Failed to send email",

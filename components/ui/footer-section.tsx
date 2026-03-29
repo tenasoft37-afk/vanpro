@@ -23,9 +23,24 @@ interface FooterData {
     emailDescription: string;
 }
 
+interface OurServicesData {
+    card1Title: string;
+    card2Title: string;
+    card3Title: string;
+    card4Title: string;
+    card5Title: string;
+    card6Title: string;
+}
+
+interface PortfolioData {
+    url: string;
+}
+
 function Footerdemo() {
     const [isDarkMode, setIsDarkMode] = React.useState(false)
     const [footerData, setFooterData] = React.useState<FooterData | null>(null)
+    const [services, setServices] = React.useState<OurServicesData | null>(null)
+    const [portfolioUrl, setPortfolioUrl] = React.useState<string | null>(null)
     const [email, setEmail] = React.useState("")
     const [isSubmitting, setIsSubmitting] = React.useState(false)
     const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null)
@@ -50,7 +65,21 @@ function Footerdemo() {
             }
         };
 
+        const fetchServicesAndPortfolio = async () => {
+            try {
+                const [svcsRes, portRes] = await Promise.all([
+                    fetch("/api/proxy/ourservices").then(r => r.json()),
+                    fetch("/api/proxy/portfolio").then(r => r.json())
+                ]);
+                if (svcsRes?.success && svcsRes.data?.length > 0) setServices(svcsRes.data[0]);
+                if (portRes?.success && portRes.data?.length > 0) setPortfolioUrl(portRes.data[0].url);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         fetchFooterData();
+        fetchServicesAndPortfolio();
     }, [])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -150,14 +179,22 @@ function Footerdemo() {
                                 Quick Links
                             </h3>
                             <nav className="space-y-3 flex flex-col items-start">
-                                {['Home', 'About Us', 'Services', 'Portfolio', 'Contact'].map((link) => (
+                                {[
+                                    { label: 'Home', href: '/' },
+                                    { label: 'About Us', href: '/about' },
+                                    { label: 'Services', href: '/services' },
+                                    { label: 'Portfolio', href: portfolioUrl || '#', target: '_blank', rel: 'noopener noreferrer' },
+                                    { label: 'Contact', href: '/contact' }
+                                ].map((link) => (
                                     <a
-                                        key={link}
-                                        href="#"
+                                        key={link.label}
+                                        href={link.href}
+                                        target={link.target}
+                                        rel={link.rel}
                                         className="group flex items-center gap-2 text-slate-600 hover:text-[#538A3E] transition-colors duration-200"
                                     >
                                         <span className="h-1 w-1 rounded-full bg-slate-300 group-hover:bg-[#538A3E] transition-colors" />
-                                        <span className="text-sm">{link}</span>
+                                        <span className="text-sm">{link.label}</span>
                                     </a>
                                 ))}
                             </nav>
@@ -169,7 +206,10 @@ function Footerdemo() {
                                 Services
                             </h3>
                             <nav className="space-y-3 flex flex-col items-start">
-                                {['Business Consulting', 'Project Management', 'Requirement Analysis', 'Business Audit', 'Business Marketing', 'Digital Marketing'].map((link) => {
+                                {(services
+                                    ? [services.card1Title, services.card2Title, services.card3Title, services.card4Title, services.card5Title, services.card6Title]
+                                    : ['Business Consulting', 'Project Management', 'Requirement Analysis', 'Business Audit', 'Business Marketing', 'Digital Marketing']
+                                ).map((link) => {
                                     // Create URL-friendly ID from service name
                                     const serviceId = link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                                     return (

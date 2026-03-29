@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface HeroData {
@@ -70,9 +71,9 @@ export default function Hero() {
                 {heroData.decrption}
               </p>
 
-              <button className="inline-flex items-center justify-center rounded-full bg-sky-500 px-10 py-4 text-white font-semibold transition-all hover:bg-sky-600 hover:-translate-y-0.5 shadow-lg">
+              <Link href="/services" className="inline-flex items-center justify-center rounded-full bg-sky-500 px-10 py-4 text-white font-semibold transition-all hover:bg-sky-600 hover:-translate-y-0.5 shadow-lg">
                 Our Services
-              </button>
+              </Link>
             </div>
 
             {/* Images */}
