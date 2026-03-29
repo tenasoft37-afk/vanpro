@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
+import { getDb } from "@/lib/mongodb";
 
-const DASHBOARD_URL = process.env.NEXT_PUBLIC_DASHBOARD_URL || "http://localhost:3001";
+export const revalidate = 10;
 
 export async function GET() {
   try {
-    const res = await fetch(`${DASHBOARD_URL}/api/ourtrackrecord`, { cache: "no-store" });
-    const data = await res.json();
-    return NextResponse.json(data);
+    const db = await getDb();
+    const data = await db.collection("OurTrackRecord").find({}).sort({ _id: -1 }).toArray();
+    return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error("Proxy error fetching ourtrackrecord:", error);
-    return NextResponse.json({ success: false, data: [] }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch ourtrackrecord" },
+      { status: 500 }
+    );
   }
 }
