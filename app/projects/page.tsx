@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
 
-const PROJECT_IMAGES = [
+const FALLBACK_IMAGES = [
   "/services1-1.jpg",
   "/services1-2.jpg",
   "/services1-3.jpg",
@@ -16,15 +16,150 @@ interface ProjectsData {
   id: string;
   Title: string;
   Descrption: string;
-  C1Title: string; C1Descrption: string; C1Points: string[];
-  C2Title: string; C2Descrption: string; C2Points: string[];
-  C3Title: string; C3Descrption: string; C3Points: string[];
-  C4Title: string; C4Descrption: string; C4Points: string[];
+  C1Title: string; C1Descrption: string; C1Points: string[]; C1Images: string[];
+  C2Title: string; C2Descrption: string; C2Points: string[]; C2Images: string[];
+  C3Title: string; C3Descrption: string; C3Points: string[]; C3Images: string[];
+  C4Title: string; C4Descrption: string; C4Points: string[]; C4Images: string[];
+}
+
+/* ── Lightbox ── */
+function Lightbox({ images, startIndex, onClose }: { images: string[]; startIndex: number; onClose: () => void }) {
+  const [idx, setIdx] = useState(startIndex);
+  const total = images.length;
+
+  const prev = useCallback(() => setIdx((i) => (i - 1 + total) % total), [total]);
+  const next = useCallback(() => setIdx((i) => (i + 1) % total), [total]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, prev, next]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative max-h-[90vh] max-w-[90vw]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Image
+          src={images[idx]}
+          alt={`Image ${idx + 1}`}
+          width={1200}
+          height={800}
+          className="max-h-[85vh] w-auto rounded-lg object-contain"
+        />
+
+        <button
+          onClick={onClose}
+          className="absolute -top-3 -right-3 rounded-full bg-white p-1.5 shadow-lg transition hover:bg-gray-100"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5 text-gray-800" />
+        </button>
+
+        {total > 1 && (
+          <>
+            <button
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
+              aria-label="Previous"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
+              aria-label="Next"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-xs text-white">
+              {idx + 1} / {total}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── Card image slider ── */
+function CardImageSlider({
+  images,
+  alt,
+  onImageClick,
+}: {
+  images: string[];
+  alt: string;
+  onImageClick: (index: number) => void;
+}) {
+  const [current, setCurrent] = useState(0);
+  const total = images.length;
+
+  if (total === 0) return null;
+
+  const prev = () => setCurrent((c) => (c - 1 + total) % total);
+  const next = () => setCurrent((c) => (c + 1) % total);
+
+  return (
+    <div className="relative h-56 overflow-hidden bg-gray-100">
+      <button
+        type="button"
+        className="relative block h-full w-full cursor-zoom-in"
+        onClick={() => onImageClick(current)}
+        aria-label="View full image"
+      >
+        <Image
+          src={images[current]}
+          alt={`${alt} – image ${current + 1}`}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </button>
+      {total > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); prev(); }}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition z-10"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); next(); }}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition z-10"
+            aria-label="Next image"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrent(i); }}
+                className={`w-1.5 h-1.5 rounded-full transition ${i === current ? "bg-white" : "bg-white/50"}`}
+                aria-label={`Go to image ${i + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default function ProjectsPage() {
   const [data, setData] = useState<ProjectsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
 
   useEffect(() => {
     fetch("/api/proxy/projects")
@@ -38,10 +173,10 @@ export default function ProjectsPage() {
 
   const cards = data
     ? [
-        { title: data.C1Title, description: data.C1Descrption, highlights: data.C1Points },
-        { title: data.C2Title, description: data.C2Descrption, highlights: data.C2Points },
-        { title: data.C3Title, description: data.C3Descrption, highlights: data.C3Points },
-        { title: data.C4Title, description: data.C4Descrption, highlights: data.C4Points },
+        { title: data.C1Title, description: data.C1Descrption, highlights: data.C1Points, images: data.C1Images?.length ? data.C1Images : [FALLBACK_IMAGES[0]] },
+        { title: data.C2Title, description: data.C2Descrption, highlights: data.C2Points, images: data.C2Images?.length ? data.C2Images : [FALLBACK_IMAGES[1]] },
+        { title: data.C3Title, description: data.C3Descrption, highlights: data.C3Points, images: data.C3Images?.length ? data.C3Images : [FALLBACK_IMAGES[2]] },
+        { title: data.C4Title, description: data.C4Descrption, highlights: data.C4Points, images: data.C4Images?.length ? data.C4Images : [FALLBACK_IMAGES[3]] },
       ]
     : [];
 
@@ -92,14 +227,11 @@ export default function ProjectsPage() {
                 key={index}
                 className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={PROJECT_IMAGES[index % PROJECT_IMAGES.length]}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+                <CardImageSlider
+                  images={project.images}
+                  alt={project.title}
+                  onImageClick={(imgIdx) => setLightbox({ images: project.images, index: imgIdx })}
+                />
                 <div className="space-y-4 p-6">
                   <h2 className="text-xl font-bold text-gray-900">{project.title}</h2>
                   <p className="text-sm leading-6 text-gray-600">{project.description}</p>
@@ -126,6 +258,18 @@ export default function ProjectsPage() {
               </article>
             ))}
       </section>
+
+      {/* ── Lightbox ── */}
+      {lightbox && (
+        <Lightbox
+          images={lightbox.images}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </main>
   );
 }
+
+
+
