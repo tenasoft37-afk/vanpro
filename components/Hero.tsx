@@ -53,7 +53,7 @@ export default function Hero() {
               <p
                 className="uppercase text-sky-500 mb-4"
                 style={{
-                  fontSize: "20px",
+                  fontSize: "14px",
                   fontWeight: 800,
                   letterSpacing: "0.2em",
                 }}
@@ -62,7 +62,7 @@ export default function Hero() {
               </p>
 
               {/* Main Title (Title2 ONLY) */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-[1.1] mb-8">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-[1.1] mb-8">
                 {heroData.Title2}
               </h1>
 

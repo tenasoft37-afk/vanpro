@@ -156,10 +156,26 @@ function CardImageSlider({
   );
 }
 
+interface ClientsSectionData {
+  id?: string;
+  badgeLabel: string;
+  title: string;
+  description: string;
+}
+
+const DEFAULT_CLIENTS_SECTION: ClientsSectionData = {
+  badgeLabel: 'Trusted Partners',
+  title: 'Proud to Work With',
+  description: 'Leading organizations trust us with their most critical operations and transformational initiatives',
+};
+
 export default function ProjectsPage() {
   const [data, setData] = useState<ProjectsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
+  const [clients, setClients] = useState<string[][]>([]);
+  const [clientsLoading, setClientsLoading] = useState(true);
+  const [clientsSection, setClientsSection] = useState<ClientsSectionData>(DEFAULT_CLIENTS_SECTION);
 
   useEffect(() => {
     fetch("/api/proxy/projects")
@@ -169,6 +185,29 @@ export default function ProjectsPage() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
+
+    fetch("/api/proxy/ourclients")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.data)) {
+          setClients(json.data.map((c: { images: string[] }) => c.images || []));
+        }
+      })
+      .catch(console.error)
+      .finally(() => setClientsLoading(false));
+
+    fetch("/api/proxy/clients-section")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setClientsSection({
+            badgeLabel: json.data.badgeLabel || DEFAULT_CLIENTS_SECTION.badgeLabel,
+            title: json.data.title || DEFAULT_CLIENTS_SECTION.title,
+            description: json.data.description || DEFAULT_CLIENTS_SECTION.description,
+          });
+        }
+      })
+      .catch(console.error);
   }, []);
 
   const cards = data
@@ -266,6 +305,66 @@ export default function ProjectsPage() {
           startIndex={lightbox.index}
           onClose={() => setLightbox(null)}
         />
+      )}
+
+      {/* ── Our Clients ── */}
+      {(clientsLoading || clients.length > 0) && (
+        <section className="relative bg-gradient-to-b from-white via-[#f9fcf8] to-white py-20">
+          {/* Background accent */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-100/20 rounded-full -translate-y-1/2 translate-x-1/4 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-50/20 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl" />
+          </div>
+
+          <div className="relative mx-auto max-w-7xl px-6">
+            {/* Header */}
+            <div className="mb-16 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white/80 backdrop-blur px-4 py-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-cyan-500" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-cyan-700">
+                  {clientsSection.badgeLabel}
+                </p>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                {clientsSection.title}
+              </h2>
+              <p className="text-base text-gray-600 max-w-2xl mx-auto">
+                {clientsSection.description}
+              </p>
+            </div>
+
+            {/* Clients Grid */}
+            {clientsLoading ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                  <div key={i} className="h-24 bg-white rounded-lg border border-gray-100 animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {clients.flatMap((imgArr, ci) =>
+                  imgArr.map((img, ii) => (
+                    <div
+                      key={`${ci}-${ii}`}
+                      className="group relative"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-cyan-500/0 group-hover:from-cyan-500/5 group-hover:to-cyan-500/10 rounded-xl transition-colors duration-300 pointer-events-none" />
+                      <div className="relative h-24 flex items-center justify-center rounded-xl border border-gray-100 bg-white/80 backdrop-blur p-4 shadow-sm transition-all duration-300 group-hover:border-cyan-200 group-hover:shadow-lg group-hover:bg-white">
+                        <Image
+                          src={img}
+                          alt={`Client logo ${ci + 1}`}
+                          width={140}
+                          height={60}
+                          className="max-h-16 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                        />
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </section>
       )}
     </main>
   );

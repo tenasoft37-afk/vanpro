@@ -1,10 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type ContactBannerContent = {
+    badge: string;
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonLink: string;
+};
+
+const DEFAULT_CONTENT: ContactBannerContent = {
+    badge: "CONTACT US",
+    title: "Want to know more about us?",
+    description: "Lollamco laboris nisi ut aliquip ex ea commodo consequat.",
+    buttonText: "Contact Us",
+    buttonLink: "#contact-form",
+};
 
 export default function Contact1() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const [content, setContent] = useState<ContactBannerContent>(DEFAULT_CONTENT);
+
+    useEffect(() => {
+        fetch("/api/proxy/contact")
+            .then((r) => r.json())
+            .then((json) => {
+                if (json.success && json.data) {
+                    setContent({
+                        badge: json.data.badge || DEFAULT_CONTENT.badge,
+                        title: json.data.title || DEFAULT_CONTENT.title,
+                        description: json.data.description || DEFAULT_CONTENT.description,
+                        buttonText: json.data.buttonText || DEFAULT_CONTENT.buttonText,
+                        buttonLink: json.data.buttonLink || DEFAULT_CONTENT.buttonLink,
+                    });
+                }
+            })
+            .catch(() => {
+                // Keep defaults if fetch fails.
+            });
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,20 +83,20 @@ export default function Contact1() {
                         }}
                     />
                     <div className="relative z-10 max-w-2xl text-white text-center md:text-left">
-                        <p className="uppercase tracking-widest text-sm font-bold mb-4 opacity-90">CONTACT US</p>
+                        <p className="uppercase tracking-widest text-sm font-bold mb-4 opacity-90">{content.badge}</p>
                         <h2 className="text-3xl md:text-4xl font-extrabold mb-6 leading-tight">
-                            Want to know more about us?
+                            {content.title}
                         </h2>
                         <p className="text-white/90 text-lg font-medium leading-relaxed">
-                            Lollamco laboris nisi ut aliquip ex ea commodo consequat.
+                            {content.description}
                         </p>
                     </div>
                     <div className="relative z-10 mt-8 md:mt-0 flex-shrink-0">
                         <a 
-                            href="#contact-form"
+                            href={content.buttonLink || "#contact-form"}
                             className="bg-[#3D3D3D] hover:bg-[#4D4C4C] text-white font-bold text-lg px-10 py-4 rounded-full transition-all duration-300 shadow-md inline-block text-center"
                         >
-                            Contact Us
+                            {content.buttonText}
                         </a>
                     </div>
                 </div>
