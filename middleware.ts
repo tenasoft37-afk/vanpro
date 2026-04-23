@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === "true";
-
 export function middleware(request: NextRequest) {
+  // Read inside the function so Vercel Edge Runtime evaluates it per-request
+  const MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === "true";
+
   const { pathname } = request.nextUrl;
 
   // Always pass pathname as a header so layouts can read it
