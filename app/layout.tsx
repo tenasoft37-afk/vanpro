@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen";
 import PageTransition from "@/components/PageTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,22 +23,32 @@ export const metadata: Metadata = {
   description: "World Class Consulting Agency",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isMaintenance = pathname.startsWith("/maintenance");
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LoadingScreen />
-        <PageTransition />
-        <Navbar />
-        {children}
-        <WhatsAppButton />
-        <Footer />
+        {isMaintenance ? (
+          children
+        ) : (
+          <>
+            <LoadingScreen />
+            <PageTransition />
+            <Navbar />
+            {children}
+            <WhatsAppButton />
+            <Footer />
+          </>
+        )}
       </body>
     </html>
   );
